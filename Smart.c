@@ -37,13 +37,41 @@ void main(void) {
     TRISB  = 1;   
     PORTB  = 0;     
 
-    __delay_ms(1000);  
-
-    LCD_Begin();       // initialize LCD module
-    unsigned char iteml[10];
+    LCD_Begin();       // initialize LCD module para que prenda inicialisar LCD
+    unsigned char iteml[20];
+    unsigned char cantidadMaximaPasjeros = 22;
+    unsigned char totalPasajeros = 0;
+    unsigned char cuposDisponibles =(cantidadMaximaPasjeros *70) /100;
     while(1){
-        LCD_Goto(7, 1);
-        sprintf(iteml,"SmartTransport","");
-        LCD_Print(iteml);
+        LCD_Goto(1, 1);   //UBICAR EL CURSOR EN CULUMNA 7, FILA 1
+        sprintf(iteml,"Fecha",""); //Mensaje
+        LCD_Print(iteml);//imprimir
+        
+        LCD_Goto(12, 1);   //UBICAR EL CURSOR EN CULUMNA 7, FILA 1
+        sprintf(iteml,"Hora",""); //Mensaje
+        LCD_Print(iteml);//imprimir
+        
+        LCD_Goto(1, 3);   //UBICAR EL CURSOR EN CULUMNA 7, FILA 1
+        sprintf(iteml,"Total Pasajeros: %2d",totalPasajeros); //Mensaje
+        LCD_Print(iteml);//imprimir
+        
+        LCD_Goto(1, 4);   //UBICAR EL CURSOR EN CULUMNA 7, FILA 1
+        sprintf(iteml,"Cupos: %2d",cuposDisponibles); //Mensaje
+        LCD_Print(iteml);//imprimir
+        
+        if(RA0 == 1){
+            while(RA0 == 1){}
+            if(cuposDisponibles!=0){
+               totalPasajeros++;
+               cuposDisponibles--;
+            }
+        }
+        if(RA1 ==1){
+            while(RA1 == 1){}
+            if(totalPasajeros!=0){
+               totalPasajeros--;
+               cuposDisponibles++;
+            }
+        }
     } 
 }

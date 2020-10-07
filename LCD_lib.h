@@ -32,7 +32,7 @@
 #endif
 
 __bit RS;
-
+//funciones de librerias 
 void LCD_Write_Nibble(uint8_t n);
 void LCD_Cmd(uint8_t Command);
 void LCD_Goto(uint8_t col, uint8_t row);
